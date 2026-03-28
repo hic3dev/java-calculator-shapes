@@ -1,5 +1,14 @@
 public class Rectangle
 {
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height)
+    {
+        this.width = width;
+        this.height = height;
+    }
+
     public double getWidth()
     {
         return width;
@@ -9,8 +18,6 @@ public class Rectangle
     {
         this.width = width;
     }
-
-    private double width;
 
     public double getHeight()
     {
@@ -22,19 +29,12 @@ public class Rectangle
         this.height = height;
     }
 
-    private double height;
+    public double area()
+    {
+        return width * height;
+    }
 
-    public Rectangle(double width, double height)
-    {
-        this.width = width;
-        this.height = height;
-    }
-    public double Area()
-    {
-        return  width* height;
-    }
-    public double getPerimtr()
-    {
+    public double perimeter() {
         return 2 * (width + height);
     }
 }

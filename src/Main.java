@@ -1,58 +1,72 @@
 import java.util.Scanner;
+
 public class Main
 {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         Scanner scanner = new Scanner(System.in);
         boolean continueProgram = true;
-        System.out.println("Калькулятор фигур");
 
-        while (continueProgram) {
-
-
+        while (continueProgram)
+        {
             System.out.println("Калькулятор фигур");
-            System.out.println("1.Прямоугольник");
-            System.out.println("2.Круг");
-            System.out.println("Выберите фигуру");
+            System.out.println("1. Прямоугольник");
+            System.out.println("2. Круг");
+            System.out.print("Выберите фигуру (1 или 2): ");
 
-            int choice = scanner.nextInt();
+            if (scanner.hasNextInt())
+            {
+                int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 1:
+                switch (choice)
+                {
+                    case 1:
+                        System.out.print("Введите ширину: ");
+                        double width = readDouble(scanner, "ширину");
+                        System.out.print("Введите высоту: ");
+                        double height = readDouble(scanner, "высоту");
 
-                    double width = readDouble(scanner, "Введите ширину: ");
-                    double height = readDouble(scanner, "Введите высоту: ");
+                        Rectangle rectangle = new Rectangle(width, height);
+                        System.out.println("Площадь: " + rectangle.area());
+                        System.out.println("Периметр: " + rectangle.perimeter());
+                        break;
 
-                    Rectangle rectangle = new Rectangle(width, height);
-                    System.out.println("Площадь " + rectangle.Area());
-                    System.out.println("Перимтр: " + rectangle.getPerimtr());
-                    break;
-                case 2:
+                    case 2:
+                        System.out.print("Введите радиус: ");
+                        double radius = readDouble(scanner, "радиус");
 
-                    double radius = readDouble(scanner, "Введите радиус: ");
-                    Circle circle = new Circle(radius);
-                    System.out.println("Площадь круга: " + circle.Area());
-                    break;
-                default:
-                    System.out.println("Неверный выбор");
+                        Circle circle = new Circle(radius);
+                        System.out.println("Площадь: " + circle.area());
+                        System.out.println("Длина окружности: " + (2 * Math.PI * radius));
+                        break;
+
+                    default:
+                        System.out.println("Ошибка! Введите 1 или 2.");
+                        continue;
+                }
             }
-            System.out.println("Посчитать ещё? (y/n): ");
-            String answer = scanner.next();
+            else
+            {
+                System.out.println("Ошибка! Нужно ввести число 1 или 2.");
+                scanner.next();
+                continue;
+            }
 
-            if (answer.equalsIgnoreCase("n"))
+            System.out.print("Посчитать ещё? (y/n): ");
+            String answer = scanner.next();
+            if (!answer.equalsIgnoreCase("y"))
             {
                 continueProgram = false;
-                System.out.println();
-
+            }
         }
-    }
+        System.out.println("Программа завершена.");
         scanner.close();
     }
 
-    private static double readDouble(Scanner scanner, String prompt)
+    private static double readDouble(Scanner scanner, String fieldName)
     {
         while (true)
         {
-            System.out.print(prompt);
             if (scanner.hasNextDouble())
             {
                 double value = scanner.nextDouble();
@@ -62,15 +76,14 @@ public class Main
                 }
                 else
                 {
-                    System.out.println("Значение должно быть положительным");
+                    System.out.print("Число должно быть положительным. Введите " + fieldName + ": ");
                 }
             }
             else
             {
-                System.out.println("Неверно. Введите пожалуйста число.");
+                System.out.print("Ошибка! Нужно ввести число. Введите " + fieldName + ": ");
                 scanner.next();
             }
         }
     }
-
 }
